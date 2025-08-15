@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en" class="dark-theme"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>2. List – 
+      Data Structures and Algorithms
+    </title>
+    <link rel="stylesheet" href="2.%20List%20%E2%80%93%20Data%20Structures%20and%20Algorithms_files/fonts.css">
+    <link rel="stylesheet" href="2.%20List%20%E2%80%93%20Data%20Structures%20and%20Algorithms_files/style.css">
+    <script>
+      let activeTheme = localStorage.getItem("theme");
+      if (activeTheme === null) {
+        activeTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.classList.toggle(
+        "dark-theme",
+        activeTheme === "dark"
+      );
+      const hideOtherSectionMenus = 1;
+    </script>
+    <script src="2.%20List%20%E2%80%93%20Data%20Structures%20and%20Algorithms_files/navigation.js"></script>
+
+    <link rel="stylesheet" href="2.%20List%20%E2%80%93%20Data%20Structures%20and%20Algorithms_files/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+    <script defer="defer" src="2.%20List%20%E2%80%93%20Data%20Structures%20and%20Algorithms_files/katex.min.js" integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4" crossorigin="anonymous"></script>
+    <script defer="defer" src="2.%20List%20%E2%80%93%20Data%20Structures%20and%20Algorithms_files/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body, { delimiter: [{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}] });"></script>
+  </head>
+  <body class="">
+    <div class="menu-background" id="menu-background"></div>
+    <button class="menu" id="menu" aria-expanded="false" aria-controls="side" aria-label="Menu">
+      <svg viewBox="0 0 5 5" width="25" height="25">
+        <rect width="5" height="1"></rect>
+        <rect width="5" height="1" y="2"></rect>
+        <rect width="5" height="1" y="4"></rect>
+      </svg>
+    </button>
+    <div class="side" id="side">
+      <header>
+        <button class="theme" id="theme" title="Switch theme">
+          <svg viewBox="0 0 10 10" width="25" height="25">
+            <circle cx="5" cy="5" r="2.4"></circle>
+            <circle cx="5" cy="1" r="0.8"></circle>
+            <circle cx="9" cy="5" r="0.8"></circle>
+            <circle cx="5" cy="9" r="0.8"></circle>
+            <circle cx="1" cy="5" r="0.8"></circle>
+            <circle cx="2.17" cy="2.17" r="0.8"></circle>
+            <circle cx="7.83" cy="2.17" r="0.8"></circle>
+            <circle cx="2.17" cy="7.83" r="0.8"></circle>
+            <circle cx="7.83" cy="7.83" r="0.8"></circle>
+          </svg>
+        </button>
+        <a class="header" href="https://tira.mooc.fi/spring-2025/">
+          <h1>Data Structures and Algorithms</h1><h2>spring 2025</h2></a>
+      </header>
+      <nav>
+        
+        <ul>
+          
+          
+            <li data-url="/">
+  <a href="https://tira.mooc.fi/spring-2025/">Course description</a>
+  
+  
+</li>
+          
+            <li data-url="/exercises">
+  <a href="https://tira.mooc.fi/spring-2025/exercises">Exercises and lecture videos</a>
+  
+  
+</li>
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+        </ul>
+        
+        
+          
+          
+          <ul>
+            
+              <li data-url="/chap01/">
+  <a href="https://tira.mooc.fi/spring-2025/chap01/">1. Introduction</a>
+  
+  
+</li>
+            
+              <li data-url="/chap02/">
+  <a href="https://tira.mooc.fi/spring-2025/chap02/" class="current">2. List</a>
+  
+  
+    <ul>
+      
+        
+          <li>
+            <a href="https://tira.mooc.fi/spring-2025/chap02/#list-in-memory" data-anchor="list-in-memory">List in memory</a>
+          </li>
+        
+      
+        
+          <li>
+            <a href="https://tira.mooc.fi/spring-2025/chap02/#list-operations" data-anchor="list-operations">List operations</a>
+          </li>
+        
+      
+        
+          <li>
+            <a href="https://tira.mooc.fi/spring-2025/chap02/#references-and-copying" data-anchor="references-and-copying">References and copying</a>
+          </li>
+        
+      
+        
+          <li>
+            <a href="https://tira.mooc.fi/spring-2025/chap02/#lists-in-other-languages" data-anchor="lists-in-other-languages">Lists in other languages</a>
+          </li>
+        
+      
+    </ul>
+  
+</li>
+            
+              <li data-url="/chap03/">
+  <a href="https://tira.mooc.fi/spring-2025/chap03/">3. Efficient algorithms</a>
+  
+  
+</li>
+            
+              <li data-url="/chap04/">
+  <a href="https://tira.mooc.fi/spring-2025/chap04/">4. Hashing</a>
+  
+  
+</li>
+            
+              <li data-url="/chap05/">
+  <a href="https://tira.mooc.fi/spring-2025/chap05/">5. Sorting</a>
+  
+  
+</li>
+            
+              <li data-url="/chap06/">
+  <a href="https://tira.mooc.fi/spring-2025/chap06/">6. Own data structures</a>
+  
+  
+</li>
+            
+              <li data-url="/chap07/">
+  <a href="https://tira.mooc.fi/spring-2025/chap07/">7. Trees and recursion</a>
+  
+  
+</li>
+            
+              <li data-url="/chap08/">
+  <a href="https://tira.mooc.fi/spring-2025/chap08/">8. Graph algorithms</a>
+  
+  
+</li>
+            
+          </ul>
+          
+          
+        
+          
+          
+          <ul>
+            
+              <li data-url="/chap09/">
+  <a href="https://tira.mooc.fi/spring-2025/chap09/">9. Search problems</a>
+  
+  
+</li>
+            
+              <li data-url="/chap10/">
+  <a href="https://tira.mooc.fi/spring-2025/chap10/">10. Dynamic programming</a>
+  
+  
+</li>
+            
+              <li data-url="/chap11/">
+  <a href="https://tira.mooc.fi/spring-2025/chap11/">11. More data structures</a>
+  
+  
+</li>
+            
+              <li data-url="/chap12/">
+  <a href="https://tira.mooc.fi/spring-2025/chap12/">12. Binary search tree</a>
+  
+  
+</li>
+            
+              <li data-url="/chap13/">
+  <a href="https://tira.mooc.fi/spring-2025/chap13/">13. Directed graphs</a>
+  
+  
+</li>
+            
+              <li data-url="/chap14/">
+  <a href="https://tira.mooc.fi/spring-2025/chap14/">14. Shortest paths</a>
+  
+  
+</li>
+            
+              <li data-url="/chap15/">
+  <a href="https://tira.mooc.fi/spring-2025/chap15/">15. Components and spanning trees</a>
+  
+  
+</li>
+            
+              <li data-url="/chap16/">
+  <a href="https://tira.mooc.fi/spring-2025/chap16/">16. Maximum flow</a>
+  
+  
+</li>
+            
+          </ul>
+          
+          
+        
+          
+        
+      </nav>
+    </div>
+    <main>
+      <div class="awning" id="awning" aria-hidden="true">2. List</div>
+      <article data-url="/chap02/">
+  <h1 id="2-list">2. List</h1>
+
+<p><em>List</em> is a versatile data structure and the principal data 
+structure in Python. The data processed by a program is most commonly 
+stored in a list, though there are situations where other data 
+structures are preferable.</p>
+
+<p>In this chapter, we take a look at the implementation and properties 
+of the Python list. A particular focus is the time complexity of list 
+operations: What operations are efficient and when you should use a 
+list.</p>
+
+<h2 id="list-in-memory">List in memory</h2>
+
+<p>The memory of a computer consists of a sequence of memory locations 
+capable of storing data. Each memory location has an address that can be
+ used for access. When a program is executed, the data it processes is 
+stored in the memory.</p>
+
+<p>Consider the following Python program as an example:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span>
+<span class="n">c</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">d</span> <span class="o">=</span> <span class="mi">99</span>
+</code></pre></div></div>
+
+<p>Let us assume that the variables and the list defined in the program 
+are stored in the memory starting from the address 100. The following is
+ a simplified illustration of what the contents of the memory might look
+ like in this situation:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>100</td>
+      <td>101</td>
+      <td>102</td>
+      <td>103</td>
+      <td>104</td>
+      <td>105</td>
+      <td>106</td>
+      <td>107</td>
+      <td>108</td>
+      <td>109</td>
+      <td>110</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>-3</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>99</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">a</code></td>
+      <td><code class="language-plaintext highlighter-rouge">b</code></td>
+      <td><code class="language-plaintext highlighter-rouge">c</code></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td><code class="language-plaintext highlighter-rouge">d</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Here the contents of the variable <code class="language-plaintext highlighter-rouge">a</code> are stored in the memory location 100 and the contents of the variable <code class="language-plaintext highlighter-rouge">b</code>in the location 101. The memory locations 102–109 are reserved for the list <code class="language-plaintext highlighter-rouge">c</code>, but only the locations 102–106 are currently in use because the list has 5 elements. The contents of the variable <code class="language-plaintext highlighter-rouge">d</code> are in the location 110.</p>
+
+<p>The elements of the list are stored in consecutive memory locations, 
+which makes it easy to determine the location of a given list element. 
+The memory address of an element is obtained by adding the element index
+ to the address of the first element. For example in the above 
+situation, the element <code class="language-plaintext highlighter-rouge">c[2]</code> is at the address 102 + 2 = 104.</p>
+
+<p>As noted above, the list occupies more memory than is needed for its 
+current elements. The reason for the extra memory is to prepare for 
+possible addition of new elements to the list. Thus the list has two 
+sizes: the number of elements (here 5) and the number of memory 
+locations reserved for the list (here 8).</p>
+
+<h2 id="list-operations">List operations</h2>
+
+<p>Python has several built-in operations for managing lists. We will 
+next take a look at the efficiency of these operations from the time 
+complexity perspective assuming that the list has <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span> elements.</p>
+
+<p>Knowing the time complexities of the list operations is important for
+ algorithm design, because they determine which operations can be used 
+as components of an efficient algorithm. Most list operations have one 
+of the following time complexities:</p>
+
+<ul>
+  <li><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span>: the operation is always efficient independent of the size of the list</li>
+  <li><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span>: the efficiency depends on the size of the list and the operation can be slow for large lists</li>
+</ul>
+
+<h3 id="indexing">Indexing</h3>
+
+<p>The elements of a list can be accessed and modified using the index operator <code class="language-plaintext highlighter-rouge">[]</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="c1"># 7
+</span><span class="n">numbers</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="k">print</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="c1"># 5
+</span></code></pre></div></div>
+
+<p>The access or modification needs <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span> time, because the elements are in consecutive memory locations and the address of an element can be computed quickly.</p>
+
+<h3 id="list-size">List size</h3>
+
+<p>The function <code class="language-plaintext highlighter-rouge">len</code> tells how many elements the list contains:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">))</span> <span class="c1"># 5
+</span></code></pre></div></div>
+
+<p>The function needs <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span> time, because the length is stored in memory with the list.</p>
+
+<h3 id="searching">Searching</h3>
+
+<p>The operator <code class="language-plaintext highlighter-rouge">in</code> tells if a given element is on the list or not. The method <code class="language-plaintext highlighter-rouge">index</code> returns the index of the first occurrence of the element on the list. The method <code class="language-plaintext highlighter-rouge">count</code> counts the occurrences of the element on the list.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+
+<span class="k">print</span><span class="p">(</span><span class="mi">3</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">)</span> <span class="c1"># True
+</span><span class="k">print</span><span class="p">(</span><span class="mi">8</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">)</span> <span class="c1"># False
+</span>
+<span class="k">print</span><span class="p">(</span><span class="n">numbers</span><span class="p">.</span><span class="n">index</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span> <span class="c1"># 1
+</span><span class="k">print</span><span class="p">(</span><span class="n">numbers</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span> <span class="c1"># 2
+</span></code></pre></div></div>
+
+<p>All of these operations need <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span> time, because they have to scan through the list. For example, the method <code class="language-plaintext highlighter-rouge">count</code> operates essentially as the following function that uses a loop to go through the elements:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">item</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">result</span>
+</code></pre></div></div>
+
+<p>Notice that some of the operations can be fast in some situations. 
+For example, if the element we are searching for is in the beginning of 
+the list, the operator <code class="language-plaintext highlighter-rouge">in</code>
+ is fast since it can stop immediately after finding the element. 
+However, in the worst case the element is not on the list and the 
+operation has to go through the whole list to verify this.</p>
+
+<h3 id="adding-an-element">Adding an element</h3>
+
+<p>The method <code class="language-plaintext highlighter-rouge">append</code> adds an element to the end of the list, and the method <code class="language-plaintext highlighter-rouge">insert</code> adds an element to a given position on the list.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+
+<span class="n">numbers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span> <span class="c1"># [1, 2, 3, 4, 5]
+</span>
+<span class="n">numbers</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span> <span class="c1"># [1, 6, 2, 3, 4, 5]
+</span></code></pre></div></div>
+
+<p>The time complexities of these operations are affected by the way the
+ elements are stored in memory. In this case, the contents of the memory
+ before additions look something like this:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>100</td>
+      <td>101</td>
+      <td>102</td>
+      <td>103</td>
+      <td>104</td>
+      <td>105</td>
+      <td>106</td>
+      <td>107</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The method <code class="language-plaintext highlighter-rouge">append</code> needs <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span>
+ time, because adding an element to the end of a list does not require 
+changes to other memory locations. In the example, the element <code class="language-plaintext highlighter-rouge">5</code> is stored in the memory location 104:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>100</td>
+      <td>101</td>
+      <td>102</td>
+      <td>103</td>
+      <td>104</td>
+      <td>105</td>
+      <td>106</td>
+      <td>107</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>If the memory area reserved for the list is already full and there is
+ no room for the new element, more work is required. In such a case, a 
+new bigger memory area is reserved for the list and all elements are 
+moved to the new area, which needs <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span> time. However, with a <a href="https://tira.mooc.fi/spring-2025/list-addition">suitable implementation</a> such a situation can be made so rare that the average time complexity of the <code class="language-plaintext highlighter-rouge">append</code> method is <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span>.</p>
+
+<p>The method <code class="language-plaintext highlighter-rouge">insert</code> has time complexity <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span>
+ because, when an element is added to somewhere else than the end of the
+ list, other elements need to be moved forward to make room for the new 
+element. In our example, when the element <code class="language-plaintext highlighter-rouge">6</code> is inserted to the index <code class="language-plaintext highlighter-rouge">1</code>, the elements are relocated as follows:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>100</td>
+      <td>101</td>
+      <td>102</td>
+      <td>103</td>
+      <td>104</td>
+      <td>105</td>
+      <td>106</td>
+      <td>107</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>6</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Notice however, that the methdod <code class="language-plaintext highlighter-rouge">insert</code>
+ is efficient when the element is inserted somewhere near the end of the
+ list, because only a small number of elements needs to be relocated.</p>
+
+<h3 id="removing-an-element">Removing an element</h3>
+
+<p>The method <code class="language-plaintext highlighter-rouge">pop</code>
+ removes an element from a list. If the method is called without a 
+parameter, it removes the last element. If a parameter is given, the 
+operation removes the element at the specified index.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+
+<span class="n">numbers</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span> <span class="c1"># [1, 2, 3, 4, 5]
+</span>
+<span class="n">numbers</span><span class="p">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span> <span class="c1"># [1, 3, 4, 5]
+</span></code></pre></div></div>
+
+<p>Let us again consider how removing an element affects the contents of
+ the memory. Before the removes, the contents of the memory look 
+something like this:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>100</td>
+      <td>101</td>
+      <td>102</td>
+      <td>103</td>
+      <td>104</td>
+      <td>105</td>
+      <td>106</td>
+      <td>107</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>As with adding, removing an element at the end of a list takes <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span> time, because the other elements are not affected. After removing the element <code class="language-plaintext highlighter-rouge">6</code>, the memory might look like this:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>100</td>
+      <td>101</td>
+      <td>102</td>
+      <td>103</td>
+      <td>104</td>
+      <td>105</td>
+      <td>106</td>
+      <td>107</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Removing an element in the middle of a list needs <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span> time, because now all the following elements have to be relocated in memory. Removing the element <code class="language-plaintext highlighter-rouge">2</code> has the following effect on the contents of the memory:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>100</td>
+      <td>101</td>
+      <td>102</td>
+      <td>103</td>
+      <td>104</td>
+      <td>105</td>
+      <td>106</td>
+      <td>107</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Python also has a list method <code class="language-plaintext highlighter-rouge">remove</code> that removes the first occurrence of a given element:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+
+<span class="n">numbers</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span> <span class="c1"># [1, 2, 1, 2, 3]
+</span></code></pre></div></div>
+
+<p>The time complexity of the method is always <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span>, because it first has to find the first occurrence (similarly to the method <code class="language-plaintext highlighter-rouge">index</code>), and then remove the element and relocate the following elements.</p>
+
+<h3 id="summary">Summary</h3>
+
+<p>The following table summarizes the time complexities of the operations we have seen:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operation</th>
+      <th>Time complexity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Indexing (<code class="language-plaintext highlighter-rouge">[]</code>)</td>
+      <td><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span></td>
+    </tr>
+    <tr>
+      <td>Size (<code class="language-plaintext highlighter-rouge">len</code>)</td>
+      <td><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span></td>
+    </tr>
+    <tr>
+      <td>Is element on list? (<code class="language-plaintext highlighter-rouge">in</code>)</td>
+      <td><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span></td>
+    </tr>
+    <tr>
+      <td>Searching (<code class="language-plaintext highlighter-rouge">index</code>)</td>
+      <td><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span></td>
+    </tr>
+    <tr>
+      <td>Counting (<code class="language-plaintext highlighter-rouge">count</code>)</td>
+      <td><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span></td>
+    </tr>
+    <tr>
+      <td>Adding to end (<code class="language-plaintext highlighter-rouge">append</code>)</td>
+      <td><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span></td>
+    </tr>
+    <tr>
+      <td>Adding to middle (<code class="language-plaintext highlighter-rouge">insert</code>)</td>
+      <td><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span></td>
+    </tr>
+    <tr>
+      <td>Removing from end (<code class="language-plaintext highlighter-rouge">pop</code>)</td>
+      <td><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span></td>
+    </tr>
+    <tr>
+      <td>Removing from middle (<code class="language-plaintext highlighter-rouge">pop</code>)</td>
+      <td><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span></td>
+    </tr>
+    <tr>
+      <td>Searching and removing (<code class="language-plaintext highlighter-rouge">remove</code>)</td>
+      <td><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Thus the efficient operations are indexing, querying the size, and 
+adding and removing elements at the end of the list. The list is a 
+suitable data structure when most of the operations are among these, and
+ the other more expensive operations are rare.</p>
+
+<h2 id="references-and-copying">References and copying</h2>
+
+<p>In Python, lists and other data structures are accessed through 
+references. Assigning a list to a variable only copies the reference, 
+not the contents of the list:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span>
+<span class="n">a</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="c1"># [1, 2, 3, 4, 5]
+</span><span class="k">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="c1"># [1, 2, 3, 4, 5]
+</span></code></pre></div></div>
+
+<p>Here executing the line <code class="language-plaintext highlighter-rouge">b = a</code> causes the variables <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code> to refer to the same list in memory. When a new element is added to the list <code class="language-plaintext highlighter-rouge">a</code>, the same addition happens to the list <code class="language-plaintext highlighter-rouge">b</code>.</p>
+
+<p>For copying the contents, we can use the method <code class="language-plaintext highlighter-rouge">copy</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">a</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="c1"># [1, 2, 3, 4, 5]
+</span><span class="k">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="c1"># [1, 2, 3, 4]
+</span></code></pre></div></div>
+
+<p>Now the variables <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code> refer to separate lists, and adding an element to the list <code class="language-plaintext highlighter-rouge">a</code> has no effect on the contents of the list <code class="language-plaintext highlighter-rouge">b</code>.</p>
+
+<p>There is a big difference in the efficiency of the above operations: copying a reference takes <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span> time, while copying the contents needs <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span> time. Thus the line <code class="language-plaintext highlighter-rouge">b = a</code> takes <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span> time, and the line <code class="language-plaintext highlighter-rouge">b = a.copy()</code> takes <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span> time.</p>
+
+<h3 id="side-effects-of-functions">Side effects of functions</h3>
+
+<p>When a function is given a data structure as a parameter, only a reference is copied. Then the function can cause <em>side effects</em>, if it changes the contents of the data structure.</p>
+
+<p>Consider the following function <code class="language-plaintext highlighter-rouge">double</code> that returns a list, where the value of each element has been doubled:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">double</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">numbers</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)):</span>
+        <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">result</span>
+</code></pre></div></div>
+
+<p>Since only the reference is copied, the function changes the list it got as a parameter:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">double</span><span class="p">(</span><span class="n">numbers</span><span class="p">))</span> <span class="c1"># [2, 4, 6, 8]
+</span><span class="k">print</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span> <span class="c1"># [2, 4, 6, 8]
+</span></code></pre></div></div>
+
+<p>This is not good when the intention is to create a new list without 
+changing the original list. The function can be corrected with the 
+method <code class="language-plaintext highlighter-rouge">copy</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">double</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)):</span>
+        <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">result</span>
+</code></pre></div></div>
+
+<p>Now the contents of the original list are not changed:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">double</span><span class="p">(</span><span class="n">numbers</span><span class="p">))</span> <span class="c1"># [2, 4, 6, 8]
+</span><span class="k">print</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span> <span class="c1"># [1, 2, 3, 4]
+</span></code></pre></div></div>
+
+<h3 id="slicing-and-concatenation">Slicing and concatenation</h3>
+
+<p>The Python slice operator (<code class="language-plaintext highlighter-rouge">[:]</code>) creates a new list that contains a copy of a segment of the given list:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">6</span><span class="p">])</span> <span class="c1"># [3, 4, 5, 6]
+</span></code></pre></div></div>
+
+<p>This operator needs <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span> time because it copies the contents from the old list to the new list.</p>
+
+<p>Since the slice operator copies the elements, it can be used for 
+copying the contents of the whole list too. The following lines are 
+equivalent:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">result</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+</code></pre></div></div>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">result</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[:]</span>
+</code></pre></div></div>
+
+<p>The operator <code class="language-plaintext highlighter-rouge">+</code> can be used for concatenating lists:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">first</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">second</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">first</span> <span class="o">+</span> <span class="n">second</span><span class="p">)</span> <span class="c1"># [1, 2, 3, 4, 5, 6, 7, 8]
+</span></code></pre></div></div>
+<p>This takes <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span> time, because the operator copies the elements from the original lists to the new list.</p>
+
+<h2 id="lists-in-other-languages">Lists in other languages</h2>
+
+<p>The list described in this chapter is more generally known as an <em>array list</em> or a <em>dynamic array</em>.</p>
+
+<p>In low level languages (such as C++ and Java), the basic data structure is usually the <em>array</em>.
+ Like a list, an array is a sequence of consecutive elements that can be
+ accessed with indexing. However, an array is assigned a fixed memory 
+area when it is created and its size cannot be changed later. When a 
+variable size is required, these languages have other data structures.</p>
+
+<p>In C++ the data structure <code class="language-plaintext highlighter-rouge">std::vector</code> implements a list:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">numbers</span><span class="p">;</span>
+
+<span class="n">numbers</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">numbers</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">numbers</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>And in Java, the data structure <code class="language-plaintext highlighter-rouge">ArrayList</code> implements a list:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">numbers</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+
+<span class="n">numbers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+<span class="n">numbers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+<span class="n">numbers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>In JavaScript, the basic data structure is called <code class="language-plaintext highlighter-rouge">Array</code>, but it is really a list since its size can be changed:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">numbers</span> <span class="o">=</span> <span class="p">[];</span>
+
+<span class="nx">numbers</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="nx">numbers</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="nx">numbers</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</code></pre></div></div>
+
+</article>
+
+      <footer>
+        <img id="hy-logo" src="2.%20List%20%E2%80%93%20Data%20Structures%20and%20Algorithms_files/hy_logo.svg">
+        <style>
+          .dark-theme #hy-logo {
+            content: url("/spring-2025/assets/img/hy_logo_neg.svg");
+          }
+        </style>
+      </footer>
+    </main>
+  
+
+</body></html>

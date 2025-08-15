@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en" class="dark-theme"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>3. Efficient algorithms – 
+      Data Structures and Algorithms
+    </title>
+    <link rel="stylesheet" href="3.%20Efficient%20algorithms%20%E2%80%93%20Data%20Structures%20and%20Algorithms_files/fonts.css">
+    <link rel="stylesheet" href="3.%20Efficient%20algorithms%20%E2%80%93%20Data%20Structures%20and%20Algorithms_files/style.css">
+    <script>
+      let activeTheme = localStorage.getItem("theme");
+      if (activeTheme === null) {
+        activeTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.classList.toggle(
+        "dark-theme",
+        activeTheme === "dark"
+      );
+      const hideOtherSectionMenus = 1;
+    </script>
+    <script src="3.%20Efficient%20algorithms%20%E2%80%93%20Data%20Structures%20and%20Algorithms_files/navigation.js"></script>
+
+    <link rel="stylesheet" href="3.%20Efficient%20algorithms%20%E2%80%93%20Data%20Structures%20and%20Algorithms_files/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+    <script defer="defer" src="3.%20Efficient%20algorithms%20%E2%80%93%20Data%20Structures%20and%20Algorithms_files/katex.min.js" integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4" crossorigin="anonymous"></script>
+    <script defer="defer" src="3.%20Efficient%20algorithms%20%E2%80%93%20Data%20Structures%20and%20Algorithms_files/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body, { delimiter: [{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}] });"></script>
+  </head>
+  <body class="">
+    <div class="menu-background" id="menu-background"></div>
+    <button class="menu" id="menu" aria-expanded="false" aria-controls="side" aria-label="Menu">
+      <svg viewBox="0 0 5 5" width="25" height="25">
+        <rect width="5" height="1"></rect>
+        <rect width="5" height="1" y="2"></rect>
+        <rect width="5" height="1" y="4"></rect>
+      </svg>
+    </button>
+    <div class="side" id="side">
+      <header>
+        <button class="theme" id="theme" title="Switch theme">
+          <svg viewBox="0 0 10 10" width="25" height="25">
+            <circle cx="5" cy="5" r="2.4"></circle>
+            <circle cx="5" cy="1" r="0.8"></circle>
+            <circle cx="9" cy="5" r="0.8"></circle>
+            <circle cx="5" cy="9" r="0.8"></circle>
+            <circle cx="1" cy="5" r="0.8"></circle>
+            <circle cx="2.17" cy="2.17" r="0.8"></circle>
+            <circle cx="7.83" cy="2.17" r="0.8"></circle>
+            <circle cx="2.17" cy="7.83" r="0.8"></circle>
+            <circle cx="7.83" cy="7.83" r="0.8"></circle>
+          </svg>
+        </button>
+        <a class="header" href="https://tira.mooc.fi/spring-2025/">
+          <h1>Data Structures and Algorithms</h1><h2>spring 2025</h2></a>
+      </header>
+      <nav>
+        
+        <ul>
+          
+          
+            <li data-url="/">
+  <a href="https://tira.mooc.fi/spring-2025/">Course description</a>
+  
+  
+</li>
+          
+            <li data-url="/exercises">
+  <a href="https://tira.mooc.fi/spring-2025/exercises">Exercises and lecture videos</a>
+  
+  
+</li>
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+        </ul>
+        
+        
+          
+          
+          <ul>
+            
+              <li data-url="/chap01/">
+  <a href="https://tira.mooc.fi/spring-2025/chap01/">1. Introduction</a>
+  
+  
+</li>
+            
+              <li data-url="/chap02/">
+  <a href="https://tira.mooc.fi/spring-2025/chap02/">2. List</a>
+  
+  
+</li>
+            
+              <li data-url="/chap03/">
+  <a href="https://tira.mooc.fi/spring-2025/chap03/" class="current">3. Efficient algorithms</a>
+  
+  
+    <ul>
+      
+        
+          <li>
+            <a href="https://tira.mooc.fi/spring-2025/chap03/#outline-of-an-efficient-algorithm" data-anchor="outline-of-an-efficient-algorithm">Outline of an efficient algorithm</a>
+          </li>
+        
+      
+        
+          <li>
+            <a href="https://tira.mooc.fi/spring-2025/chap03/#example-stock-trading" data-anchor="example-stock-trading">Example: Stock trading</a>
+          </li>
+        
+      
+        
+          <li>
+            <a href="https://tira.mooc.fi/spring-2025/chap03/#is-the-algorithm-correct" data-anchor="is-the-algorithm-correct">Is the algorithm correct?</a>
+          </li>
+        
+      
+        
+          <li>
+            <a href="https://tira.mooc.fi/spring-2025/chap03/#example-bit-string" data-anchor="example-bit-string">Example: Bit string</a>
+          </li>
+        
+      
+        
+          <li>
+            <a href="https://tira.mooc.fi/spring-2025/chap03/#example-list-splitting" data-anchor="example-list-splitting">Example: List splitting</a>
+          </li>
+        
+      
+        
+          <li>
+            <a href="https://tira.mooc.fi/spring-2025/chap03/#example-sublists" data-anchor="example-sublists">Example: Sublists</a>
+          </li>
+        
+      
+    </ul>
+  
+</li>
+            
+              <li data-url="/chap04/">
+  <a href="https://tira.mooc.fi/spring-2025/chap04/">4. Hashing</a>
+  
+  
+</li>
+            
+              <li data-url="/chap05/">
+  <a href="https://tira.mooc.fi/spring-2025/chap05/">5. Sorting</a>
+  
+  
+</li>
+            
+              <li data-url="/chap06/">
+  <a href="https://tira.mooc.fi/spring-2025/chap06/">6. Own data structures</a>
+  
+  
+</li>
+            
+              <li data-url="/chap07/">
+  <a href="https://tira.mooc.fi/spring-2025/chap07/">7. Trees and recursion</a>
+  
+  
+</li>
+            
+              <li data-url="/chap08/">
+  <a href="https://tira.mooc.fi/spring-2025/chap08/">8. Graph algorithms</a>
+  
+  
+</li>
+            
+          </ul>
+          
+          
+        
+          
+          
+          <ul>
+            
+              <li data-url="/chap09/">
+  <a href="https://tira.mooc.fi/spring-2025/chap09/">9. Search problems</a>
+  
+  
+</li>
+            
+              <li data-url="/chap10/">
+  <a href="https://tira.mooc.fi/spring-2025/chap10/">10. Dynamic programming</a>
+  
+  
+</li>
+            
+              <li data-url="/chap11/">
+  <a href="https://tira.mooc.fi/spring-2025/chap11/">11. More data structures</a>
+  
+  
+</li>
+            
+              <li data-url="/chap12/">
+  <a href="https://tira.mooc.fi/spring-2025/chap12/">12. Binary search tree</a>
+  
+  
+</li>
+            
+              <li data-url="/chap13/">
+  <a href="https://tira.mooc.fi/spring-2025/chap13/">13. Directed graphs</a>
+  
+  
+</li>
+            
+              <li data-url="/chap14/">
+  <a href="https://tira.mooc.fi/spring-2025/chap14/">14. Shortest paths</a>
+  
+  
+</li>
+            
+              <li data-url="/chap15/">
+  <a href="https://tira.mooc.fi/spring-2025/chap15/">15. Components and spanning trees</a>
+  
+  
+</li>
+            
+              <li data-url="/chap16/">
+  <a href="https://tira.mooc.fi/spring-2025/chap16/">16. Maximum flow</a>
+  
+  
+</li>
+            
+          </ul>
+          
+          
+        
+          
+        
+      </nav>
+    </div>
+    <main>
+      <div class="awning" id="awning" aria-hidden="true">3. Efficient algorithms</div>
+      <article data-url="/chap03/">
+  <h1 id="3-efficient-algorithms">3. Efficient algorithms</h1>
+
+<p>The topic of this and the following two chapters is the design of 
+efficient algorithms. We aim for algorithms that execute efficiently 
+even when the input size <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span> is big.</p>
+
+<p>A common situation in algorithm design is one where it is easy to 
+design a straightforward algorithm that solves the problem with two 
+nested loops in <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.0641em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8141em;"><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span> time. This kind of an algorithm can be called a <em>brute force</em> algorithm. But if <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span> is big, a more efficient algorithm may be necessary.</p>
+
+<p>In practice, an efficient algorithm is often required to have a time complexity <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span> or <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n \log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mop">lo<span style="margin-right: 0.0139em;">g</span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span>. We will first take a look at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span> time algorithms that scan through the input in one loop while maintaining some additional data. The time complexity <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n \log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mop">lo<span style="margin-right: 0.0139em;">g</span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span> often arises from the use of sorting, which will be covered in Chapter 5.</p>
+
+<h2 id="outline-of-an-efficient-algorithm">Outline of an efficient algorithm</h2>
+
+<p>A typical efficient algorithm might be structured something like this:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define variables
+</span><span class="k">for</span> <span class="p">...</span>
+    <span class="c1"># efficient code
+# return answer
+</span></code></pre></div></div>
+
+<p>An efficient algorithm typically has a single for-loop that goes 
+through the input from left to right. The code inside the loop is 
+efficient so that each round in the loop takes <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span> time. Then the time complexity of the whole algorithm is <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span>.</p>
+
+<p>A loop in an efficient algorithm may contain the following:</p>
+
+<ul>
+  <li>updates of variable values using other variables or individual elements of the input</li>
+  <li>arithmetic expressions related to variable updates</li>
+  <li>if-commands that affect the variable updates</li>
+</ul>
+
+<p>But the loop may not contain:</p>
+
+<ul>
+  <li>other loops that go through the input</li>
+  <li>slow operations that process the input (for example, <code class="language-plaintext highlighter-rouge">count</code> or the slice operation <code class="language-plaintext highlighter-rouge">[:]</code>)</li>
+  <li>slow function calls (for example, <code class="language-plaintext highlighter-rouge">sum</code>, <code class="language-plaintext highlighter-rouge">min</code> or <code class="language-plaintext highlighter-rouge">max</code> applied to the whole input)</li>
+</ul>
+
+<p>A major challenge in the design of many algorithms is to figure out 
+how to implement the algorithm so that the loop contains only efficient 
+code. We will next see examples of how to achieve this.</p>
+
+<h2 id="example-stock-trading">Example: Stock trading</h2>
+
+<p class="note-title">Task</p>
+<div class="note">
+
+  <p>You are given the price of a stock for <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span>
+ days. Your task is figure out the highest profit you could have made if
+ you had bought the stock on one day and sold it on another day.</p>
+
+  <p>Consider the following situation:</p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td>Day</td>
+        <td>0</td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+      </tr>
+      <tr>
+        <td>Price</td>
+        <td>3</td>
+        <td>7</td>
+        <td>5</td>
+        <td>1</td>
+        <td>4</td>
+        <td>6</td>
+        <td>2</td>
+        <td>3</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Here the highest profit is 6 – 1 = 5, achieved by buying on day 3 and selling on day 5.</p>
+
+</div>
+
+<p>A straightforward algorithm for solving this problem iterates through
+ all combinations of buying and selling days. The following function <code class="language-plaintext highlighter-rouge">best_profit</code> implements the algorithm:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">best_profit</span><span class="p">(</span><span class="n">prices</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
+    <span class="n">best</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="n">best</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">best</span><span class="p">,</span> <span class="n">prices</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">best</span>
+</code></pre></div></div>
+
+<p>The variable <code class="language-plaintext highlighter-rouge">i</code> indicates the buying day and the variable <code class="language-plaintext highlighter-rouge">j</code> the selling day. The profit is computed for each combination of days, and the variable <code class="language-plaintext highlighter-rouge">best</code> remembers the highest profit encounted so far. This is a correct algorithm but its time complexity is <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.0641em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8141em;"><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span>, which makes it slow for big <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span>. We would like to have a more efficient algorithm that has only one loop.</p>
+
+<p>Let us consider how a single loop algorithm might work. When the loop
+ reaches a given day, what is the highest profit possible if we sell on 
+that day? The profit is maximized if we bought the stock at the lowest 
+price on any of the preceding days. Thus each possible selling day 
+should be paired with lowest buying price on the preceding days.</p>
+
+<p>This idea is implemented in the following algorithm:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">best_profit</span><span class="p">(</span><span class="n">prices</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
+    <span class="n">best</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">min_price</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">prices</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">best</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">best</span><span class="p">,</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">min_price</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">best</span>
+</code></pre></div></div>
+
+<p>The variable <code class="language-plaintext highlighter-rouge">i</code> now indicates the selling day. The algorithm computes the lowest price up to day <code class="language-plaintext highlighter-rouge">i</code> into the variable <code class="language-plaintext highlighter-rouge">min_price</code>. This is implemented with the <code class="language-plaintext highlighter-rouge">min</code> function over the beginning part <code class="language-plaintext highlighter-rouge">prices[0:i+1]</code> of the list. Then the highest profit possible when selling on day <code class="language-plaintext highlighter-rouge">i</code> can be computed as <code class="language-plaintext highlighter-rouge">prices[i] - min_price</code>.</p>
+
+<p>This is again a correct algorithm and has only one loop, but it is still not efficient. The problem is that computing <code class="language-plaintext highlighter-rouge">min_price</code> takes too much time, because the function <code class="language-plaintext highlighter-rouge">min</code> has to scan through all the preceding elements, which takes <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span> time. In essence, there is a hidden second loop inside the function <code class="language-plaintext highlighter-rouge">min</code>. Thus the total time complexity is still <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.0641em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8141em;"><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span>.</p>
+
+<p>We can fix the problem as follows:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">best_profit</span><span class="p">(</span><span class="n">prices</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
+    <span class="n">best</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">min_price</span> <span class="o">=</span> <span class="n">prices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">min_price</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">min_price</span><span class="p">,</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">best</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">best</span><span class="p">,</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">min_price</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">best</span>
+</code></pre></div></div>
+
+<p>Now the value of the variable <code class="language-plaintext highlighter-rouge">min_price</code>
+ is not computed from scratch each time, but instead each new value is 
+computed efficiently from the previous one. With this modification, each
+ round of the loop needs only <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span> time and the time complexity of the whole algorithm is <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span>, making it efficient.</p>
+
+<p>Notice that the function <code class="language-plaintext highlighter-rouge">min</code> can be slow or fast. Computing the smallest value on a long list is slow, but computing the smaller of two values is fast.</p>
+
+<h2 id="is-the-algorithm-correct">Is the algorithm correct?</h2>
+
+<p>The operating logic of an efficient algorithm is often more 
+complicated than that of a straightforward brute force algorithm. This 
+can make it more difficult to determine if the algorithm works 
+correctly.</p>
+
+<p>A useful way to test the correctness of an algorithm is to <em>compare</em>
+ its output with a simpler correct algorithm. This can be automated so 
+that the algorithms are tested on a large number of random inputs. For 
+example, the above algorithms can be tested as follows:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">random</span>
+
+<span class="k">def</span> <span class="nf">best_profit_brute</span><span class="p">(</span><span class="n">prices</span><span class="p">):</span>
+    <span class="p">...</span>
+
+<span class="k">def</span> <span class="nf">best_profit_fast</span><span class="p">(</span><span class="n">prices</span><span class="p">):</span>
+    <span class="p">...</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+    <span class="n">prices</span> <span class="o">=</span> <span class="p">[</span><span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+
+    <span class="n">result_brute</span> <span class="o">=</span> <span class="n">best_profit_brute</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
+    <span class="n">result_fast</span> <span class="o">=</span> <span class="n">best_profit_fast</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="n">prices</span><span class="p">,</span> <span class="n">result_brute</span><span class="p">,</span> <span class="n">result_fast</span><span class="p">)</span>
+   
+    <span class="k">if</span> <span class="n">result_brute</span> <span class="o">!=</span> <span class="n">result_fast</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"ERROR"</span><span class="p">)</span>
+        <span class="k">break</span>
+</code></pre></div></div>
+
+<p>Here the function <code class="language-plaintext highlighter-rouge">best_profit_brute</code> implements the brute force algorithm and the function <code class="language-plaintext highlighter-rouge">best_profit_fast</code> implements the efficient algorithm. The main program generates random lists with the length <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span> in the range <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>…</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">1 \dots 20</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">1</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">20</span></span></span></span></span> and the prices in the range <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>…</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">1 \dots 10</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">1</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">10</span></span></span></span></span>.
+ After each test run, the program prints out the list used in the test 
+and the outputs of the two functions. The output might look like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[2, 4, 5, 4, 2, 4, 8, 7, 5] 6 6
+[8, 8, 8, 3, 6, 4, 9, 3, 2, 5, 4, 5, 2] 6 6
+[9, 3, 1, 5, 8, 9, 3] 8 8
+[3, 6, 7] 4 4
+[6, 8, 7, 10, 8, 6, 1, 1, 2, 2, 8, 9, 10] 9 9
+[4, 5, 3, 4, 5] 2 2
+[3, 6, 2] 3 3
+[4, 3, 8, 10, 7, 3, 4, 7, 5, 1, 7, 8, 7] 7 7
+...
+</code></pre></div></div>
+
+<p>The matching outputs provide some assurance of the correctness of the
+ efficient algorithm. If the program finds an input, where the outputs 
+differ, it prints an error and exits. We can then try to figure out why 
+the algorithm produced an incorrect output.</p>
+
+<h2 id="example-bit-string">Example: Bit string</h2>
+
+<p class="note-title">Task</p>
+<div class="note">
+  <p>You are given a bit string consisting of the characters <code class="language-plaintext highlighter-rouge">0</code> and <code class="language-plaintext highlighter-rouge">1</code>. How many ways can you select two positions in the bit string so that the left position contains the bit <code class="language-plaintext highlighter-rouge">0</code> and the right position contains the bit <code class="language-plaintext highlighter-rouge">1</code>?</p>
+
+  <p>Consider the following situation:</p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td>Position</td>
+        <td>0</td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+      </tr>
+      <tr>
+        <td>Bit</td>
+        <td>0</td>
+        <td>1</td>
+        <td>0</td>
+        <td>0</td>
+        <td>1</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Here there are 12 such pairs of positions.</p>
+
+</div>
+
+<p>A straightforward solution is to iterate through all possible pairs of positions and count the number of times with <code class="language-plaintext highlighter-rouge">0</code> on the left and <code class="language-plaintext highlighter-rouge">1</code> on the right:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">count_ways</span><span class="p">(</span><span class="n">bits</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bits</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">bits</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s">'0'</span> <span class="ow">and</span> <span class="n">bits</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="s">'1'</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">result</span>
+</code></pre></div></div>
+
+<p>Again, the algorithm is too slow as its time complexity is <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.0641em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8141em;"><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span>.</p>
+
+<p>Let us think about how we could solve the task with a single loop. As
+ with the stock trading problem, a good approach is to consider all 
+pairs ending at the current position simultaneously. More precisely, at a
+ position <code class="language-plaintext highlighter-rouge">i</code>, we need an efficient way of counting the pairs with a bit <code class="language-plaintext highlighter-rouge">1</code> at position <code class="language-plaintext highlighter-rouge">i</code> and a bit <code class="language-plaintext highlighter-rouge">0</code> at a position before <code class="language-plaintext highlighter-rouge">i</code>.</p>
+
+<p>If the bit at position <code class="language-plaintext highlighter-rouge">i</code> is <code class="language-plaintext highlighter-rouge">0</code>, the count is obviously 0. If the bit at position <code class="language-plaintext highlighter-rouge">i</code> is <code class="language-plaintext highlighter-rouge">1</code>, we need to know how many of the preceding positions contain a <code class="language-plaintext highlighter-rouge">0</code> bit. We get this number efficiently by keeping track of the number of <code class="language-plaintext highlighter-rouge">0</code> bits seen so far. Here is an implementation of this idea:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">count_ways</span><span class="p">(</span><span class="n">bits</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bits</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">zeros</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bits</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">bits</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s">'0'</span><span class="p">:</span>
+            <span class="n">zeros</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">bits</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s">'1'</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">+=</span> <span class="n">zeros</span>
+    <span class="k">return</span> <span class="n">result</span>
+</code></pre></div></div>
+
+<p>The code executed within the loop depends on whether the bit at the current position is <code class="language-plaintext highlighter-rouge">0</code> or <code class="language-plaintext highlighter-rouge">1</code>. If the bit is <code class="language-plaintext highlighter-rouge">0</code>, we increment the variable <code class="language-plaintext highlighter-rouge">zeros</code> that stores the number of zeros seen so far. If the bit is <code class="language-plaintext highlighter-rouge">1</code>, we add the value <code class="language-plaintext highlighter-rouge">zeros</code> to the variable <code class="language-plaintext highlighter-rouge">result</code>, corresponding to the desired pairs with <code class="language-plaintext highlighter-rouge">i</code> as the right position.</p>
+
+<p>The algorithm has a single loop that scans through the input, and the code inside the loop needs <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span> time. Thus the algorithm is efficient as it runs in <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span> time.</p>
+
+<h2 id="example-list-splitting">Example: List splitting</h2>
+
+<p class="note-title">Task</p>
+<div class="note">
+  <p>You are given a list containing <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span>
+ integers. Your task is to count how many ways one can split the list 
+into two parts so that both parts have the same total sum of elements.</p>
+
+  <p>Consider the following example list:</p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td>Position</td>
+        <td>0</td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+      </tr>
+      <tr>
+        <td>Number</td>
+        <td>1</td>
+        <td>-1</td>
+        <td>1</td>
+        <td>-1</td>
+        <td>1</td>
+        <td>-1</td>
+        <td>1</td>
+        <td>-1</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Here the number of ways is 3. We can split the list between 
+positions 1 and 2, between positions 3 and 4, and between positions 5 
+and 6.</p>
+
+</div>
+
+<p>Here is a straightforward algorithm for the task:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">count_splits</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">left_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">right_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:])</span>
+        <span class="k">if</span> <span class="n">left_sum</span> <span class="o">==</span> <span class="n">right_sum</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">result</span>
+</code></pre></div></div>
+
+<p>The algorithm goes through all ways of splitting the list, and computes the sums of the resulting parts into the variables <code class="language-plaintext highlighter-rouge">left_sum</code> and <code class="language-plaintext highlighter-rouge">right_sum</code>. If the sums are the same, the count stored in the variable <code class="language-plaintext highlighter-rouge">result</code> is incremented by one. The time complexity of the algorithm is <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.0641em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8141em;"><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span>, because computing the two sums takes <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span> time.</p>
+
+<p>Since the algorithm goes through the elements from left to right, we can compute <code class="language-plaintext highlighter-rouge">left_sum</code> more efficiently by incrementing the previous value at each step:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">count_splits</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">left_sum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">left_sum</span> <span class="o">+=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">right_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:])</span>
+        <span class="k">if</span> <span class="n">left_sum</span> <span class="o">==</span> <span class="n">right_sum</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">result</span>
+</code></pre></div></div>
+
+<p>This is still not fast enough, because computing <code class="language-plaintext highlighter-rouge">right_sum</code> is still slow, and the trick we used for <code class="language-plaintext highlighter-rouge">left_sum</code> does not work for <code class="language-plaintext highlighter-rouge">right_sum</code>, because the list is processed in left-to-right order. Even with the faster computation of <code class="language-plaintext highlighter-rouge">left_sum</code>, the time complexity is still <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.0641em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8141em;"><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span>.</p>
+
+<p>For further improvement, we can utilize the following observation: If we know the sum of the <em>whole</em> list in addition to <code class="language-plaintext highlighter-rouge">left_sum</code>, we can compute <code class="language-plaintext highlighter-rouge">right_sum</code> efficiently:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">count_splits</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">left_sum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">total_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">left_sum</span> <span class="o">+=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">right_sum</span> <span class="o">=</span> <span class="n">total_sum</span> <span class="o">-</span> <span class="n">left_sum</span>
+        <span class="k">if</span> <span class="n">left_sum</span> <span class="o">==</span> <span class="n">right_sum</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">result</span>
+</code></pre></div></div>
+
+<p>Since the total sum does not change during the loop, we can compute it into the variable <code class="language-plaintext highlighter-rouge">total_sum</code> before the loop. This takes <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span> time but it is done only once. Then, inside the loop, <code class="language-plaintext highlighter-rouge">right_sum</code> can be computed as the difference <code class="language-plaintext highlighter-rouge">total_sum - left_sum</code>. The total time complexity of the obtained algorithm is <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span style="margin-right: 0.0278em;" class="mord mathnormal">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span>.</p>
+
+<h2 id="example-sublists">Example: Sublists</h2>
+
+<p class="note-title">Task</p>
+<div class="note">
+  <p>You are given a list containing <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span> integers. How many ways can we choose a sublist that contains exactly two distinct integers?</p>
+
+  <p>For example, the list <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>4</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[1,2,3,3,2,2,4,2]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">4</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">2</span><span class="mclose">]</span></span></span></span></span> has <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>14</mn></mrow><annotation encoding="application/x-tex">14</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">14</span></span></span></span></span> such sublists.</p>
+
+</div>
+
+<p>This task is harder than the ones above, but the same approach works 
+here too: Go through the list, and at each position, compute how many 
+solutions end at the current position.</p>
+
+<p>With the example list, we should obtain the following counts at each position:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Index</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>Number</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>3</td>
+      <td>2</td>
+      <td>2</td>
+      <td>4</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Count</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>3</td>
+      <td>3</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For example, the count at the position 5 is 3, because the valid sublists ending at the position 5 are <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[2,3,3,2,2]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">[</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">2</span><span class="mclose">]</span></span></span></span></span>, <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>3</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[3,3,2,2]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">[</span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">2</span><span class="mclose">]</span></span></span></span></span> and <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>3</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[3,2,2]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">[</span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">2</span><span class="mclose">]</span></span></span></span></span>.</p>
+
+<p>We can compute the count of sublists ending at a position <code class="language-plaintext highlighter-rouge">i</code> efficiently with two variables: <code class="language-plaintext highlighter-rouge">a</code> points to the nearest preceding position that contains a different value than the one in the position <code class="language-plaintext highlighter-rouge">i</code>, and <code class="language-plaintext highlighter-rouge">b</code> points to the nearest preceding position whose value differs from both of the values at the positions <code class="language-plaintext highlighter-rouge">i</code> and <code class="language-plaintext highlighter-rouge">a</code>. These two values are useful, because a valid sublist ending at <code class="language-plaintext highlighter-rouge">i</code> must start after the position <code class="language-plaintext highlighter-rouge">b</code> and before or at the position <code class="language-plaintext highlighter-rouge">a</code>. Thus the number of valid sublists ending at <code class="language-plaintext highlighter-rouge">i</code> can be counted with the formula <code class="language-plaintext highlighter-rouge">a - b</code>.</p>
+
+<p>For example, when <code class="language-plaintext highlighter-rouge">i</code> is at the position 5, we have the following situation:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Index</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>Number</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>3</td>
+      <td>2</td>
+      <td>2</td>
+      <td>4</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td><code class="language-plaintext highlighter-rouge">b</code></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td><code class="language-plaintext highlighter-rouge">a</code></td>
+      <td>&nbsp;</td>
+      <td><code class="language-plaintext highlighter-rouge">i</code></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Here <code class="language-plaintext highlighter-rouge">a</code> points to the position 3 containing the value 3, and <code class="language-plaintext highlighter-rouge">b</code> points to the position <code class="language-plaintext highlighter-rouge">0</code> containing the value <code class="language-plaintext highlighter-rouge">1</code>. The count of sublists is obtained as 3 – 0 = 3.</p>
+
+<p>The variables of <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code> must be updated every time when the value at the position <code class="language-plaintext highlighter-rouge">i</code> is different from the value at the position <code class="language-plaintext highlighter-rouge">i - 1</code>. There are two cases to consider:</p>
+
+<ol>
+  <li>If the value at <code class="language-plaintext highlighter-rouge">i</code> is different from the value at <code class="language-plaintext highlighter-rouge">a</code>, <code class="language-plaintext highlighter-rouge">b</code> moves to the position <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">a</code> moves to the position <code class="language-plaintext highlighter-rouge">i - 1</code>.</li>
+  <li>If the value at <code class="language-plaintext highlighter-rouge">i</code> is equal to the value at <code class="language-plaintext highlighter-rouge">a</code>, <code class="language-plaintext highlighter-rouge">a</code> again moves to <code class="language-plaintext highlighter-rouge">i - 1</code> but <code class="language-plaintext highlighter-rouge">b</code> does not move.</li>
+</ol>
+
+<p>Let us consider what happens next in our example. When <code class="language-plaintext highlighter-rouge">i</code> moves from the position 5 to the position 6, the values at <code class="language-plaintext highlighter-rouge">i</code> and <code class="language-plaintext highlighter-rouge">a</code> are different and we have the case 1. Thus <code class="language-plaintext highlighter-rouge">a</code> moves to the position 6 – 1 = 5 and <code class="language-plaintext highlighter-rouge">b</code> moves to the position 3:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Index</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>Number</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>3</td>
+      <td>2</td>
+      <td>2</td>
+      <td>4</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td><code class="language-plaintext highlighter-rouge">b</code></td>
+      <td>&nbsp;</td>
+      <td><code class="language-plaintext highlighter-rouge">a</code></td>
+      <td><code class="language-plaintext highlighter-rouge">i</code></td>
+      <td>&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>When <code class="language-plaintext highlighter-rouge">i</code> moves from the position 6 to the position 7, the values at <code class="language-plaintext highlighter-rouge">i</code> and <code class="language-plaintext highlighter-rouge">a</code> are equal and we have the case 2. Thus <code class="language-plaintext highlighter-rouge">a</code> moves to the position 7 – 1 = 6 and <code class="language-plaintext highlighter-rouge">b</code> does not move:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Index</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>Number</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>3</td>
+      <td>2</td>
+      <td>2</td>
+      <td>4</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td><code class="language-plaintext highlighter-rouge">b</code></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td><code class="language-plaintext highlighter-rouge">a</code></td>
+      <td><code class="language-plaintext highlighter-rouge">i</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This idea leads to an efficient algorithm that can be implemented as follows:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">count_lists</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">a</span><span class="p">]:</span>
+                <span class="n">b</span> <span class="o">=</span> <span class="n">a</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">result</span> <span class="o">+=</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span>
+    <span class="k">return</span> <span class="n">result</span>
+</code></pre></div></div>
+
+<p>Initially, both <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code> have the value <code class="language-plaintext highlighter-rouge">-1</code>,
+ which indicates that they are not yet pointing to any list position. It
+ is straightforward to verify that the algorithm computes the correct 
+sublist counts in the beginning while <code class="language-plaintext highlighter-rouge">a</code> or <code class="language-plaintext highlighter-rouge">b</code> still has the value <code class="language-plaintext highlighter-rouge">-1</code>.</p>
+
+</article>
+
+      <footer>
+        <img id="hy-logo" src="3.%20Efficient%20algorithms%20%E2%80%93%20Data%20Structures%20and%20Algorithms_files/hy_logo.svg">
+        <style>
+          .dark-theme #hy-logo {
+            content: url("/spring-2025/assets/img/hy_logo_neg.svg");
+          }
+        </style>
+      </footer>
+    </main>
+  
+
+</body></html>

@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en" class="dark-theme"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>7. Trees and recursion – 
+      Data Structures and Algorithms
+    </title>
+    <link rel="stylesheet" href="7.%20Trees%20and%20recursion%20%E2%80%93%20Data%20Structures%20and%20Algorithms_files/fonts.css">
+    <link rel="stylesheet" href="7.%20Trees%20and%20recursion%20%E2%80%93%20Data%20Structures%20and%20Algorithms_files/style.css">
+    <script>
+      let activeTheme = localStorage.getItem("theme");
+      if (activeTheme === null) {
+        activeTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.classList.toggle(
+        "dark-theme",
+        activeTheme === "dark"
+      );
+      const hideOtherSectionMenus = 1;
+    </script>
+    <script src="7.%20Trees%20and%20recursion%20%E2%80%93%20Data%20Structures%20and%20Algorithms_files/navigation.js"></script>
+
+    <link rel="stylesheet" href="7.%20Trees%20and%20recursion%20%E2%80%93%20Data%20Structures%20and%20Algorithms_files/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+    <script defer="defer" src="7.%20Trees%20and%20recursion%20%E2%80%93%20Data%20Structures%20and%20Algorithms_files/katex.min.js" integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4" crossorigin="anonymous"></script>
+    <script defer="defer" src="7.%20Trees%20and%20recursion%20%E2%80%93%20Data%20Structures%20and%20Algorithms_files/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body, { delimiter: [{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}] });"></script>
+  </head>
+  <body class="">
+    <div class="menu-background" id="menu-background"></div>
+    <button class="menu" id="menu" aria-expanded="false" aria-controls="side" aria-label="Menu">
+      <svg viewBox="0 0 5 5" width="25" height="25">
+        <rect width="5" height="1"></rect>
+        <rect width="5" height="1" y="2"></rect>
+        <rect width="5" height="1" y="4"></rect>
+      </svg>
+    </button>
+    <div class="side" id="side">
+      <header>
+        <button class="theme" id="theme" title="Switch theme">
+          <svg viewBox="0 0 10 10" width="25" height="25">
+            <circle cx="5" cy="5" r="2.4"></circle>
+            <circle cx="5" cy="1" r="0.8"></circle>
+            <circle cx="9" cy="5" r="0.8"></circle>
+            <circle cx="5" cy="9" r="0.8"></circle>
+            <circle cx="1" cy="5" r="0.8"></circle>
+            <circle cx="2.17" cy="2.17" r="0.8"></circle>
+            <circle cx="7.83" cy="2.17" r="0.8"></circle>
+            <circle cx="2.17" cy="7.83" r="0.8"></circle>
+            <circle cx="7.83" cy="7.83" r="0.8"></circle>
+          </svg>
+        </button>
+        <a class="header" href="https://tira.mooc.fi/spring-2025/">
+          <h1>Data Structures and Algorithms</h1><h2>spring 2025</h2></a>
+      </header>
+      <nav>
+        
+        <ul>
+          
+          
+            <li data-url="/">
+  <a href="https://tira.mooc.fi/spring-2025/">Course description</a>
+  
+  
+</li>
+          
+            <li data-url="/exercises">
+  <a href="https://tira.mooc.fi/spring-2025/exercises">Exercises and lecture videos</a>
+  
+  
+</li>
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+        </ul>
+        
+        
+          
+          
+          <ul>
+            
+              <li data-url="/chap01/">
+  <a href="https://tira.mooc.fi/spring-2025/chap01/">1. Introduction</a>
+  
+  
+</li>
+            
+              <li data-url="/chap02/">
+  <a href="https://tira.mooc.fi/spring-2025/chap02/">2. List</a>
+  
+  
+</li>
+            
+              <li data-url="/chap03/">
+  <a href="https://tira.mooc.fi/spring-2025/chap03/">3. Efficient algorithms</a>
+  
+  
+</li>
+            
+              <li data-url="/chap04/">
+  <a href="https://tira.mooc.fi/spring-2025/chap04/">4. Hashing</a>
+  
+  
+</li>
+            
+              <li data-url="/chap05/">
+  <a href="https://tira.mooc.fi/spring-2025/chap05/">5. Sorting</a>
+  
+  
+</li>
+            
+              <li data-url="/chap06/">
+  <a href="https://tira.mooc.fi/spring-2025/chap06/">6. Own data structures</a>
+  
+  
+</li>
+            
+              <li data-url="/chap07/">
+  <a href="https://tira.mooc.fi/spring-2025/chap07/" class="current">7. Trees and recursion</a>
+  
+  
+    <ul>
+      
+        
+          <li>
+            <a href="https://tira.mooc.fi/spring-2025/chap07/#implementing-a-tree" data-anchor="implementing-a-tree">Implementing a tree</a>
+          </li>
+        
+      
+        
+          <li>
+            <a href="https://tira.mooc.fi/spring-2025/chap07/#computing-information-from-a-tree" data-anchor="computing-information-from-a-tree">Computing information from a tree</a>
+          </li>
+        
+      
+        
+          <li>
+            <a href="https://tira.mooc.fi/spring-2025/chap07/#computing-depths" data-anchor="computing-depths">Computing depths</a>
+          </li>
+        
+      
+        
+          <li>
+            <a href="https://tira.mooc.fi/spring-2025/chap07/#improving-the-class" data-anchor="improving-the-class">Improving the class</a>
+          </li>
+        
+      
+        
+          <li>
+            <a href="https://tira.mooc.fi/spring-2025/chap07/#example-employees" data-anchor="example-employees">Example: Employees</a>
+          </li>
+        
+      
+        
+          <li>
+            <a href="https://tira.mooc.fi/spring-2025/chap07/#example-queens" data-anchor="example-queens">Example: Queens</a>
+          </li>
+        
+      
+    </ul>
+  
+</li>
+            
+              <li data-url="/chap08/">
+  <a href="https://tira.mooc.fi/spring-2025/chap08/">8. Graph algorithms</a>
+  
+  
+</li>
+            
+          </ul>
+          
+          
+        
+          
+          
+          <ul>
+            
+              <li data-url="/chap09/">
+  <a href="https://tira.mooc.fi/spring-2025/chap09/">9. Search problems</a>
+  
+  
+</li>
+            
+              <li data-url="/chap10/">
+  <a href="https://tira.mooc.fi/spring-2025/chap10/">10. Dynamic programming</a>
+  
+  
+</li>
+            
+              <li data-url="/chap11/">
+  <a href="https://tira.mooc.fi/spring-2025/chap11/">11. More data structures</a>
+  
+  
+</li>
+            
+              <li data-url="/chap12/">
+  <a href="https://tira.mooc.fi/spring-2025/chap12/">12. Binary search tree</a>
+  
+  
+</li>
+            
+              <li data-url="/chap13/">
+  <a href="https://tira.mooc.fi/spring-2025/chap13/">13. Directed graphs</a>
+  
+  
+</li>
+            
+              <li data-url="/chap14/">
+  <a href="https://tira.mooc.fi/spring-2025/chap14/">14. Shortest paths</a>
+  
+  
+</li>
+            
+              <li data-url="/chap15/">
+  <a href="https://tira.mooc.fi/spring-2025/chap15/">15. Components and spanning trees</a>
+  
+  
+</li>
+            
+              <li data-url="/chap16/">
+  <a href="https://tira.mooc.fi/spring-2025/chap16/">16. Maximum flow</a>
+  
+  
+</li>
+            
+          </ul>
+          
+          
+        
+          
+        
+      </nav>
+    </div>
+    <main>
+      <div class="awning" id="awning" aria-hidden="true">7. Trees and recursion</div>
+      <article data-url="/chap07/">
+  <h1 id="7-trees-and-recursion">7. Trees and recursion</h1>
+
+<p>A <em>tree</em> is a data structures that consists of <em>nodes</em> at different levels. A tree can represent a hierarchy through connections between nodes of different levels.</p>
+
+<p>Consider the following tree:</p>
+
+<p><img src="7.%20Trees%20and%20recursion%20%E2%80%93%20Data%20Structures%20and%20Algorithms_files/puu.png" alt=""></p>
+
+<p>This tree has seven nodes at three levels.</p>
+
+<p>The top-most node is called the <em>root</em>. A <em>child</em> of a node is a lower level node connected to it. A node is the <em>parent</em> of its children. If a node has no children, it is a <em>leaf</em>.</p>
+
+<p>In the example, the root of the tree is the node 1. The children of 
+the node 1 are the nodes 4, 5 and 2. The parent of the node 4 is the 
+node 1. The leaves of the tree are the nodes, 3, 7, 5 and 6.</p>
+
+<p>Every node except the root has exactly one parent. This means that 
+any node can be reached from the root by following the node connections 
+downwards, and there is always exactly one such way from the root to the
+ node. The root has no parent.</p>
+
+<p>The <em>subtree</em> of a node consists of all nodes that can be 
+reached by following connections downwards from the node. In the 
+example, the subtree of the node 1 contains all nodes of the tree, and 
+the subtree of the node 4 contains the nodes 4, 3 and 7.</p>
+
+<p>The <em>depth</em> of a node tells how low the node is in the tree. 
+The depth of the root is 0, and the depth of any other node is one 
+bigger than the depth of its parent. In the example, the depth of the 
+node 1 is 0, the depth of the node 4 is 1, and the depth of the node 3 
+is 2.</p>
+
+<p>The <em>height</em> of a tree is the maximum depth of any node in the
+ tree. In the example, the height of the tree is 2, because 2 is the 
+depth of the nodes 3, 7 and 6.</p>
+
+<h2 id="implementing-a-tree">Implementing a tree</h2>
+
+<p>We can represent a tree in Python using the following class <code class="language-plaintext highlighter-rouge">Node</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Node</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">children</span><span class="o">=</span><span class="p">[]):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">children</span> <span class="o">=</span> <span class="n">children</span>
+        
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">value</span><span class="p">)</span>        
+</code></pre></div></div>
+
+<p>The construction of a node takes two parameters: the value stored in 
+the node and a list of the children of the node. If no list is given, it
+ is empty by default. For example, the following code creates three 
+nodes so that the nodes 2 and 3 are children of the node 1.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">node2</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">node3</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">node1</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="n">node2</span><span class="p">,</span> <span class="n">node3</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>The string representation of a node is the value in the node:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="c1"># 1
+</span></code></pre></div></div>
+
+<p>With this class, we can define a tree by building the root node of 
+the tree. For example, the following code creates the example tree at 
+the beginning of the chapter:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tree</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="n">Node</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">Node</span><span class="p">(</span><span class="mi">7</span><span class="p">)]),</span>
+                <span class="n">Node</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
+                <span class="n">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="n">Node</span><span class="p">(</span><span class="mi">6</span><span class="p">)])])</span>
+</code></pre></div></div>
+
+<h3 id="traversing-a-tree">Traversing a tree</h3>
+
+<p>A natural way to process a tree is using recursion. For example the following function <code class="language-plaintext highlighter-rouge">traverse</code> goes through all the nodes that are in the subtree of the node <code class="language-plaintext highlighter-rouge">node</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">traverse</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="p">.</span><span class="n">children</span><span class="p">:</span>
+        <span class="n">traverse</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>When the function is given a reference to the root of a tree, it traverses all the nodes in the tree:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">traverse</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Given the example tree, the function prints:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+4
+3
+7
+5
+2
+6
+</code></pre></div></div>
+
+<p>The function <code class="language-plaintext highlighter-rouge">traverse</code> starts by printing the value (<code class="language-plaintext highlighter-rouge">node.value</code>) of the given node. Then the function iterates through the children of the node (<code class="language-plaintext highlighter-rouge">node.children</code>) and calls itself recursively for each child.</p>
+
+<p>We can further illustrate the operation of the function with the following modification:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">traverse</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"enter"</span><span class="p">,</span> <span class="n">node</span><span class="p">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="p">.</span><span class="n">children</span><span class="p">:</span>
+        <span class="n">traverse</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"leave"</span><span class="p">,</span> <span class="n">node</span><span class="p">.</span><span class="n">value</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Now the function prints ”enter <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></span>”, when the processing of a node <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></span> starts, and ”leave <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></span>”, when the processing of the node <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></span> ends. For the example tree, the modified function prints:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>enter 1
+enter 4
+enter 3
+leave 3
+enter 7
+leave 7
+leave 4
+enter 5
+leave 5
+enter 2
+enter 6
+leave 6
+leave 2
+leave 1
+</code></pre></div></div>
+
+<h2 id="computing-information-from-a-tree">Computing information from a tree</h2>
+
+<p>Trees are often processed using recursive functions that compute some
+ value related to the tree. As an example, let us consider a function <code class="language-plaintext highlighter-rouge">count_nodes</code> that counts how many nodes are in the subtree of the node <code class="language-plaintext highlighter-rouge">node</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">count_nodes</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="p">.</span><span class="n">children</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">+=</span> <span class="n">count_nodes</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+</code></pre></div></div>
+
+<p>The function can be used as follows:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tree</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="n">Node</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">Node</span><span class="p">(</span><span class="mi">7</span><span class="p">)]),</span>
+                <span class="n">Node</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
+                <span class="n">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="n">Node</span><span class="p">(</span><span class="mi">6</span><span class="p">)])])</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">count_nodes</span><span class="p">(</span><span class="n">tree</span><span class="p">))</span> <span class="c1"># 7
+</span></code></pre></div></div>
+
+<p>The function computes the node count into the variable <code class="language-plaintext highlighter-rouge">result</code>. The initial value of the variable is 1, because it includes the node <code class="language-plaintext highlighter-rouge">node</code>
+ itself. Then the function goes through the children of the node and 
+recursively counts the nodes in the subtrees of the children.</p>
+
+<p>Let us see how the function counts the nodes in the example:</p>
+
+<p><img src="7.%20Trees%20and%20recursion%20%E2%80%93%20Data%20Structures%20and%20Algorithms_files/puu.png" alt=""></p>
+
+<p>When the function is given the node 1, the variable <code class="language-plaintext highlighter-rouge">result</code>
+ is initialized with 1, and then the node counts of the children are 
+added to it. The children of the node 1 are the nodes 4, 5 and 2. The 
+subtree of the node 4 has 3 nodes, the subtree of the node 5 has 1 node,
+ and the subtree of the node 2 has 2 nodes. Thus 3, 1 and 2 are added to
+ the variable <code class="language-plaintext highlighter-rouge">result</code> and the final node count is 1 + 3 + 1 + 2 = 7.</p>
+
+<p>We can further illustrate the operation of the function by adding a print command:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">count_nodes</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="p">.</span><span class="n">children</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">+=</span> <span class="n">count_nodes</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"subtree of node"</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="s">"has"</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="s">"nodes"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+</code></pre></div></div>
+
+<p>Now the function prints out the subtree node count for all nodes:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>subtree of node 3 has 1 nodes
+subtree of node 7 has 1 nodes
+subtree of node 4 has 3 nodes
+subtree of node 5 has 1 nodes
+subtree of node 6 has 1 nodes
+subtree of node 2 has 2 nodes
+subtree of node 1 has 7 nodes
+</code></pre></div></div>
+
+<p>Many values related to trees can be computed using the same approach:
+ define some variables, iterate through the children recursively, and 
+update the variables appropriately. For example, the following function 
+computes the height of the tree, i.e., the maximum depth of any node in 
+the tree:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">count_height</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="p">.</span><span class="n">children</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">count_height</span><span class="p">(</span><span class="n">child</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+</code></pre></div></div>
+
+<p>In this case, the loop goes through the children and chooses the biggest subtree height incremented by one using the function <code class="language-plaintext highlighter-rouge">max</code>.
+ In the example tree, the subtree heights of the children of the node 1 
+are 1, 0 and 1. The biggest height is 1, and with the addition of 1, the
+ resulting subtree height of the node 1 is 2.</p>
+
+<h2 id="computing-depths">Computing depths</h2>
+
+<p>Sometimes it is useful to add a parameter to the recursive function 
+to keep track of the depth of a node. For example, the following 
+function prints out the depth of every node:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">traverse</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">depth</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"node"</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="s">"depth"</span><span class="p">,</span> <span class="n">depth</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="p">.</span><span class="n">children</span><span class="p">:</span>
+        <span class="n">traverse</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The initial call of the function is given the root of the tree and 
+the depth 0, and each step deeper in the tree increments the depth by 
+one. The function can be used as follows:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tree</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="n">Node</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">Node</span><span class="p">(</span><span class="mi">7</span><span class="p">)]),</span>
+                <span class="n">Node</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
+                <span class="n">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="n">Node</span><span class="p">(</span><span class="mi">6</span><span class="p">)])])</span>
+
+<span class="n">traverse</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>In this case, the output is:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>node 1 depth 0
+node 4 depth 1
+node 3 depth 2
+node 7 depth 2
+node 5 depth 1
+node 2 depth 1
+node 6 depth 2
+</code></pre></div></div>
+
+<p>Let us next design a more complicated function <code class="language-plaintext highlighter-rouge">get_depths</code>
+ that returns the node depths as a list ordered from the smallest to the
+ biggest depth. With the example tree, the function should return the 
+list <code class="language-plaintext highlighter-rouge">[0, 1, 1, 1, 2, 2, 2]</code>. A good way to implement a function like this is to define a helper function that has more parameters:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">get_depths</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="n">depths</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">get_depths_helper</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">depths</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">depths</span><span class="p">)</span>
+    
+<span class="k">def</span> <span class="nf">get_depths_helper</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">depths</span><span class="p">):</span>
+    <span class="n">depths</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="p">.</span><span class="n">children</span><span class="p">:</span>
+        <span class="n">get_depths_helper</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">depths</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The function operates as follows:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tree</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="n">Node</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">Node</span><span class="p">(</span><span class="mi">7</span><span class="p">)]),</span>
+                <span class="n">Node</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
+                <span class="n">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="n">Node</span><span class="p">(</span><span class="mi">6</span><span class="p">)])])</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">get_depths</span><span class="p">(</span><span class="n">tree</span><span class="p">))</span> <span class="c1"># [0, 1, 1, 1, 2, 2, 2]
+</span></code></pre></div></div>
+
+<p>The function <code class="language-plaintext highlighter-rouge">get_depths</code> first creates a list <code class="language-plaintext highlighter-rouge">depths</code> for storing the depths. Then the function calls the helper function <code class="language-plaintext highlighter-rouge">get_depth_helper</code> that adds all the depths to the list. Finally the function <code class="language-plaintext highlighter-rouge">get_depths</code> sorts and returns the list.</p>
+
+<p>The function <code class="language-plaintext highlighter-rouge">get_depths_helper</code> has two additional paramaters: the parameter <code class="language-plaintext highlighter-rouge">depth</code>, which keeps track of the depth of the current node, and the parameter <code class="language-plaintext highlighter-rouge">depths</code>,
+ which is a reference to the list of depths. Notice that, since Python 
+passes lists by reference, all the depths are added to the same list 
+defined in the function <code class="language-plaintext highlighter-rouge">get_depth</code>. This way we can collect data from different function calls to the same list.</p>
+
+<p>Below is another way to implement the two functions. This time the function <code class="language-plaintext highlighter-rouge">get_depths_helper</code> does not get the list as a parameter but returns the list:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">get_depths</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">get_depths_helper</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">get_depths_helper</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">depth</span><span class="p">):</span>
+    <span class="n">depths</span> <span class="o">=</span> <span class="p">[</span><span class="n">depth</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="p">.</span><span class="n">children</span><span class="p">:</span>
+        <span class="n">depths</span> <span class="o">+=</span> <span class="n">get_depths_helper</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">depths</span>
+</code></pre></div></div>
+
+<p>Now the function <code class="language-plaintext highlighter-rouge">get_depths_helper</code>
+ creates a list initially containing the depth of the current node. Then
+ the function computes the lists for the child subtrees recursively and 
+adds those lists into its own list. The function <code class="language-plaintext highlighter-rouge">get_depths</code> gets the list of depths from the helper function and returns it in sorted order.</p>
+
+<h2 id="improving-the-class">Improving the class</h2>
+
+<p>Let us return to the definition of the class <code class="language-plaintext highlighter-rouge">Node</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Node</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">children</span><span class="o">=</span><span class="p">[]):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">children</span> <span class="o">=</span> <span class="n">children</span>
+        
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">value</span><span class="p">)</span>        
+</code></pre></div></div>
+
+<p>As we have seen, the class works well in many cases, but there is 
+feature of Python that can cause problems in some cases. The following 
+code illustrates this:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">node1</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">node2</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">node1</span><span class="p">.</span><span class="n">children</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">node2</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">node1</span><span class="p">.</span><span class="n">children</span><span class="p">)</span> <span class="c1"># [2]
+</span><span class="k">print</span><span class="p">(</span><span class="n">node2</span><span class="p">.</span><span class="n">children</span><span class="p">)</span> <span class="c1"># [2]
+</span></code></pre></div></div>
+
+<p>Here we create two nodes without children and then add the node 2 as a
+ child of the node 1. Surprisingly, this has the effect of adding the 
+node 2 as its own child too.</p>
+
+<p>This effect is caused by the default parameter <code class="language-plaintext highlighter-rouge">[]</code>, which is created only once and <em>shared</em>
+ between all calls of the method. Thus both nodes refer to the same 
+empty list and any additions to the list are seen by both nodes.</p>
+
+<p>We can fix the issue by modifying the constructor as follows:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Node</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">children</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">children</span> <span class="o">=</span> <span class="n">children</span> <span class="k">if</span> <span class="n">children</span> <span class="k">else</span> <span class="p">[]</span>
+        
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">value</span><span class="p">)</span>        
+</code></pre></div></div>
+
+<p>Now the default value of the parameter <code class="language-plaintext highlighter-rouge">children</code> is <code class="language-plaintext highlighter-rouge">None</code>.
+ If no parameter is supplied, the method creates an empty list. After 
+this modification, each node gets its own empty list and the code works 
+as expected:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">node1</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">node2</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">node1</span><span class="p">.</span><span class="n">children</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">node2</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">node1</span><span class="p">.</span><span class="n">children</span><span class="p">)</span> <span class="c1"># [2]
+</span><span class="k">print</span><span class="p">(</span><span class="n">node2</span><span class="p">.</span><span class="n">children</span><span class="p">)</span> <span class="c1"># []
+</span></code></pre></div></div>
+
+<p>A second issue with the class is that printing a node prints only the node value and no information about its children:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tree</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="n">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">Node</span><span class="p">(</span><span class="mi">4</span><span class="p">)]),</span> <span class="n">Node</span><span class="p">(</span><span class="mi">5</span><span class="p">)])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span> <span class="c1"># 1
+</span></code></pre></div></div>
+
+<p>As a principle in Python, the method <code class="language-plaintext highlighter-rouge">__repr__</code> should return a string that can be used for constructing the object. This is not the case with the above method <code class="language-plaintext highlighter-rouge">__repr__</code>.</p>
+
+<p>We can fix this as follows:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Node</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">children</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">children</span> <span class="o">=</span> <span class="n">children</span> <span class="k">if</span> <span class="n">children</span> <span class="k">else</span> <span class="p">[]</span>
+        
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">children</span> <span class="o">==</span> <span class="p">[]:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s">"Node(</span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">value</span><span class="si">}</span><span class="s">)"</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s">"Node(</span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">value</span><span class="si">}</span><span class="s">, </span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">children</span><span class="si">}</span><span class="s">)"</span>
+</code></pre></div></div>
+
+<p>Now printing a node outputs a string that includes all the nodes in 
+the child subtrees too and that could be used for creating the object:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tree</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="n">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">Node</span><span class="p">(</span><span class="mi">4</span><span class="p">)]),</span> <span class="n">Node</span><span class="p">(</span><span class="mi">5</span><span class="p">)])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span> <span class="c1"># Node(1, [Node(2, [Node(3), Node(4)]), Node(5)])
+</span></code></pre></div></div>
+
+<h2 id="example-employees">Example: Employees</h2>
+
+<p>Trees can be used for representing hierarchical structures. For 
+example, the personel structure of an organization could be represented 
+as a tree, where each employee is a node, and the children of the node 
+are the subordinates of the employee.</p>
+
+<p>The following class can be used for storing the name of an employee and a list of the employee’s subordinates:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Employee</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">subordinates</span><span class="o">=</span><span class="p">[]):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">subordinates</span> <span class="o">=</span> <span class="n">subordinates</span>
+        
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">name</span>
+</code></pre></div></div>
+
+<p>The class can be used as follows:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">list_employees</span><span class="p">(</span><span class="n">employee</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">" "</span><span class="o">*</span><span class="p">(</span><span class="n">level</span><span class="o">*</span><span class="mi">4</span><span class="p">),</span> <span class="n">employee</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">subordinate</span> <span class="ow">in</span> <span class="n">employee</span><span class="p">.</span><span class="n">subordinates</span><span class="p">:</span>
+        <span class="n">list_employees</span><span class="p">(</span><span class="n">subordinate</span><span class="p">,</span> <span class="n">level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">staff</span> <span class="o">=</span> <span class="n">Employee</span><span class="p">(</span><span class="s">"Emilia"</span><span class="p">,</span>
+                 <span class="p">[</span>
+                    <span class="n">Employee</span><span class="p">(</span><span class="s">"Antti"</span><span class="p">),</span>
+                    <span class="n">Employee</span><span class="p">(</span><span class="s">"Leena"</span><span class="p">,</span> <span class="p">[</span><span class="n">Employee</span><span class="p">(</span><span class="s">"Jussi"</span><span class="p">)]),</span>
+                    <span class="n">Employee</span><span class="p">(</span><span class="s">"Matti"</span><span class="p">,</span> <span class="p">[</span><span class="n">Employee</span><span class="p">(</span><span class="s">"Sasu"</span><span class="p">)])</span>
+                 <span class="p">])</span>
+
+<span class="n">list_employees</span><span class="p">(</span><span class="n">staff</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The output of the code is as follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Emilia
+    Antti
+    Leena
+        Jussi
+    Matti
+        Sasu
+</code></pre></div></div>
+
+<h2 id="example-queens">Example: Queens</h2>
+
+<p>A systematic iteration of possible solutions to a problem can often 
+be seen as a traversal of a tree. This technique of solving a problem is
+ knowns as <em>backtracking</em>. Let us consider the following problem as an example:</p>
+
+<p class="note-title">Task</p>
+<div class="note">
+
+  <p>How many ways can you place <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span> queens on an <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>×</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">n \times n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6667em; vertical-align: -0.0833em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span>
+ chess board so that no two queens attack each other? Two queens attack 
+each other if they are on the same row, column or diagonal.</p>
+
+  <p>For example, when <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">n=4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">4</span></span></span></span></span>, there are <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">2</span></span></span></span></span> solutions:</p>
+
+  <p><img src="7.%20Trees%20and%20recursion%20%E2%80%93%20Data%20Structures%20and%20Algorithms_files/queens1.png" alt=""></p>
+
+</div>
+
+<p>We can solve the task by traversing a tree, where the root represents
+ an empty board. Each non-root node represents a board obtained by 
+modifiying the board of its parent by adding one more queen to an empty 
+row. The following image shows a part of the tree corresponding to the 
+case <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">n=4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">4</span></span></span></span></span>:</p>
+
+<p><img src="7.%20Trees%20and%20recursion%20%E2%80%93%20Data%20Structures%20and%20Algorithms_files/queens2.png" alt=""></p>
+
+<p>By traversing the tree, we will encounter all the valid solutions with <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span>
+ queens that do not attack each other, and we can count them. We will 
+also encounter invalid solutions, where two queens attack each other, 
+and partial solutions with less than <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span>
+ queens. The invalid solutions are discarded and the partial solutions 
+are extended by adding more queens. Notice that the tree is never stored
+ explicitly in memory but is build during the traversal.</p>
+
+<p>The following code implements the traversal:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">count_queens</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">count</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[])</span>
+
+<span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">queens</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">row</span> <span class="o">==</span> <span class="n">n</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">attacks</span> <span class="o">=</span> <span class="p">[</span><span class="n">attack</span><span class="p">(</span><span class="n">queen</span><span class="p">,</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">))</span> <span class="k">for</span> <span class="n">queen</span> <span class="ow">in</span> <span class="n">queens</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">attacks</span><span class="p">):</span>
+            <span class="n">result</span> <span class="o">+=</span> <span class="n">count</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">row</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">queens</span> <span class="o">+</span> <span class="p">[(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)])</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+<span class="k">def</span> <span class="nf">attack</span><span class="p">(</span><span class="n">queen1</span><span class="p">,</span> <span class="n">queen2</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">queen1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">queen2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">or</span> <span class="n">queen1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">queen2</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">queen1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">queen2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="nb">abs</span><span class="p">(</span><span class="n">queen1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">queen2</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">return</span> <span class="bp">False</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">count_queens</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span> <span class="c1"># 2
+</span><span class="k">print</span><span class="p">(</span><span class="n">count_queens</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span> <span class="c1"># 92
+</span></code></pre></div></div>
+
+<p>The function <code class="language-plaintext highlighter-rouge">count</code>
+ is given three parameters: the size of the board, the next empty row 
+and the list of queens already placed on the board. The rows and columns
+ are numbered <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>…</mo><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0 \dots n-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">0</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">1</span></span></span></span></span> and the queens are represented as pairs <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>y</mi><mo separator="true">,</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(y,x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span style="margin-right: 0.0359em;" class="mord mathnormal">y</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span></span>, where <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.1944em;"></span><span style="margin-right: 0.0359em;" class="mord mathnormal">y</span></span></span></span></span> is the row and <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></span>
+ is the column of the queen’s location. The function goes through all 
+the columns, checks if a new queen can be placed at the column without 
+attacking any other queens, and if it can, processes that placement 
+recursively.</p>
+
+<p>The function <code class="language-plaintext highlighter-rouge">attack</code>
+ handles the attack checks. The condition on the first line checks if 
+the two queens are on the same row or the same column. The second 
+condition checks if the queens attack each other diagonally: they do if 
+their horizontal and vertical coordinates differ by the same amount.</p>
+
+<p>The function <code class="language-plaintext highlighter-rouge">any</code> in the code returns <code class="language-plaintext highlighter-rouge">True</code> if the given list contains <code class="language-plaintext highlighter-rouge">True</code> at least once. Thus <code class="language-plaintext highlighter-rouge">not any(attacks)</code> means that the list <code class="language-plaintext highlighter-rouge">attacks</code> contains only <code class="language-plaintext highlighter-rouge">False</code> values, i.e., that the new queen attacks none of the previously placed queens.</p>
+
+</article>
+
+      <footer>
+        <img id="hy-logo" src="7.%20Trees%20and%20recursion%20%E2%80%93%20Data%20Structures%20and%20Algorithms_files/hy_logo.svg">
+        <style>
+          .dark-theme #hy-logo {
+            content: url("/spring-2025/assets/img/hy_logo_neg.svg");
+          }
+        </style>
+      </footer>
+    </main>
+  
+
+</body></html>

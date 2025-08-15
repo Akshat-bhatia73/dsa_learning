@@ -1,3 +1,6 @@
+import random
+import time
+
 """
 > You are given the price of a stock for nn days. Your task is figure out the highest profit you could have made if you had bought the stock on one day and sold it on another day.
 
@@ -98,4 +101,113 @@ def efficient_bits(bits: list[str]):
             zeroes += 1
 
     return result
-print(efficient_bits(["0", "1", "0", "0", "1", "0", "1", "1"]))
+
+
+"""
+> You are given a list containing nn integers. Your task is to count how many ways one can split the list into two parts so that both parts have the same total sum of elements.
+
+> Consider the following example list:
+|Position |	0 |	1 |	2 |	3 |	4 |	5 |	6 |	7 |
+|----------|---|---|---|---|---|---|---|---|
+|Number | 1 | -1 | 1 |	-1 | 1 | -1 | 1 | -1 |
+
+> Here the number of ways is 3. We can split the list between positions 1 and 2, between positions 3 and 4, and between positions 5 and 6.
+"""
+
+
+def brute_force_count_splits(numbers: list[int]) -> int:
+    n = len(numbers)
+    result = 0
+    for i in range(n - 1):
+        left_sum = sum(numbers[0 : i + 1])
+        right_sum = sum(numbers[i + 1 :])
+        if left_sum == right_sum:
+            result += 1
+    return result
+
+
+def slightly_better_brute_force_count_splits(numbers: list[int]) -> int:
+    n = len(numbers)
+    result = 0
+    left_sum = 0
+    for i in range(n - 1):
+        left_sum += numbers[i]
+        right_sum = sum(numbers[i + 1 :])
+        if left_sum == right_sum:
+            result += 1
+    return result
+
+
+def my_efficient_solution_count_splits(numbers: list[int]) -> int:
+    n = len(numbers)
+    result = 0
+
+    total_sum = sum(numbers)
+    left_sum = 0
+    for i in range(n - 1):
+        left_sum += numbers[i]
+        total_sum -= numbers[i]
+
+        if total_sum == left_sum:
+            result += 1
+
+    return result
+
+
+def calculate_time(exec, variable):
+    start_time = time.time()
+    result = exec(variable)
+    end_time = time.time()
+
+    print("Result: ", result)
+
+    print(
+        "Total time taken to execute: ",
+        exec.__name__,
+        " ",
+        end_time - start_time,
+        end="\n",
+    )
+
+
+def brue_force_count_sublists(numbers: list[int]) -> int:
+    n = len(numbers)
+    result = 0
+
+    for i in range(n - 1):
+        map = {numbers[i]: 1}
+        key_count = 1
+
+        for j in range(i + 1, n):
+            if numbers[j] not in map:
+                map[numbers[j]] = 1
+                key_count += 1
+
+            if key_count > 2:
+                break
+
+            if key_count == 2:
+                result += 1
+
+    return result
+
+
+def efficient_count_lists(numbers: list[int]) -> int:
+    n = len(numbers)
+    a = b = -1
+    result = 0
+    for i in range(1, n):
+        if numbers[i] != numbers[i - 1]:
+            if numbers[i] != numbers[a]:
+                b = a
+            a = i - 1
+        result += a - b
+    return result
+
+
+n = random.randint(100000000, 200000000)
+
+numbers = [random.randint(1000, 1006) for _ in range(n)]
+
+calculate_time(brue_force_count_sublists, variable=numbers)
+calculate_time(efficient_count_lists, variable=numbers)
