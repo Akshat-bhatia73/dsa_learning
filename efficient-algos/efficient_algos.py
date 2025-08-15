@@ -205,7 +205,7 @@ def efficient_count_lists(numbers: list[int]) -> int:
     return result
 
 
-n = random.randint(100000000, 200000000)
+n = random.randint(10000, 20000)
 
 numbers = [random.randint(1000, 1006) for _ in range(n)]
 
