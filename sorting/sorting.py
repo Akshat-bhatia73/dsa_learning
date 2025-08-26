@@ -54,7 +54,7 @@ def insertion_sort_while_loop(arr):
 def selection_sort(arr: list[int]) -> list[int]:
     n = len(arr)
 
-    for i in range(0, n-1):
+    for i in range(0, n - 1):
         min_idx = i
         for j in range(i + 1, n):
             if arr[j] < arr[min_idx]:
@@ -65,7 +65,36 @@ def selection_sort(arr: list[int]) -> list[int]:
     return arr
 
 
+def counting_sort(arr: list[int]) -> list[int]:
+    n = len(arr)
+
+    # find the maximum element
+    maxval = max(arr)
+
+    # create and initialize count array
+    count = [0] * (maxval + 1)
+
+    # count frequency of each element
+    for num in arr:
+        count[num] += 1
+
+    # compute prefix sum
+    # This will actually tell us at what index will the particular value end.
+    for i in range(1, maxval + 1):
+        count[i] += count[i - 1]
+        # count[i] becomes the last index on which this value will be present in the sorted array
+
+    # build output array
+    ans = [0] * n
+    for i in range(n - 1, -1, -1):
+        val = arr[i]
+        ans[count[val] - 1] = val
+        count[val] -= 1
+
+    return ans
+
+
 # print(bubble_sort([12, 11, 13, 5, 6]))
 # print(insertion_sort_for_loop([12, 11, 13, 5, 6]))
 # print(insertion_sort_while_loop([12, 11, 13, 5, 6]))
-print(selection_sort([12, 11, 13, 5, 6]))
+print(counting_sort([5, 6, 12, 11, 13, 5, 6]))

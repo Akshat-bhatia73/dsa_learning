@@ -95,3 +95,43 @@ def selection_sort(arr: list[int]) -> list[int]:
 > Time Complexity: O(n^2)
 
 > Space Complexity: O(1)
+
+4. **Counting Sort**
+
+It is a non-comparison-based sorting algorithm that works efficiently when the range of input values is small relative to the number of elements. It counts the frequency of each distinct element and uses that count to place elements directly into their correct sorted positions.
+
+However, if the maximum value is much larger than the array size (especially more than n log n), then standard comparison-based algorithms are usually more efficient.
+
+```python
+def counting_sort(arr: list[int]) -> list[int]:
+    n = len(arr)
+
+    # find the maximum element
+    maxval = max(arr)
+
+    # create and initialize count array
+    count = [0] * (maxval + 1)
+
+    # count frequency of each element
+    for num in arr:
+        count[num] += 1
+
+    # compute prefix sum
+    # This will actually tell us at what index will the particular value end.
+    for i in range(1, maxval + 1):
+        count[i] += count[i - 1]
+        # count[i] becomes the last index on which this value will be present in the sorted array
+
+    # build output array
+    ans = [0] * n
+    for i in range(n - 1, -1, -1):
+        val = arr[i]
+        ans[count[val] - 1] = val
+        count[val] -= 1
+
+    return ans
+```
+
+> Time Complexity: O(n + k) k is the length of the count array
+
+> Space Complexity: O(n + k)
